@@ -43,7 +43,15 @@ class CalculatorWindow(QWidget):
 
         input_field.setText(new_value)
 
+    def button_reset_clicked(self):
+        input_field = self.layout().itemAtPosition(0, 0).widget()
+        input_field.setText('0')
+
     def add_buttons(self):
+
+        pbReset = QPushButton('C')
+        pbReset.clicked.connect(self.button_reset_clicked)
+        self.layout().addWidget(pbReset, 1, 4)
 
         pbSeven = QPushButton('7')
         pbSeven.clicked.connect(self.button_number_clicked)
