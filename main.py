@@ -27,34 +27,56 @@ class CalculatorWindow(QWidget):
         )
 
     def add_input(self):
-        self.layout().addWidget(
-            QLineEdit(), 0, 0, 1, 5)
+        input_field = QLineEdit()
+        input_field.setReadOnly(True)
+        input_field.setText('0')
+        self.layout().addWidget(input_field, 0, 0, 1, 5)
+
+    def button_number_clicked(self):
+        sender = self.sender()
+        input_field = self.layout().itemAtPosition(0, 0).widget()
+
+        if input_field.text() == '0':
+            new_value = sender.text()
+        else:
+            new_value = input_field.text() + sender.text()
+
+        input_field.setText(new_value)
 
     def add_buttons(self):
 
         pbSeven = QPushButton('7')
+        pbSeven.clicked.connect(self.button_number_clicked)
         self.layout().addWidget(pbSeven, 2, 0)
         pbEight = QPushButton('8')
+        pbEight.clicked.connect(self.button_number_clicked)
         self.layout().addWidget(pbEight, 2, 1)
         pbNine = QPushButton('9')
+        pbNine.clicked.connect(self.button_number_clicked)
         self.layout().addWidget(pbNine, 2, 2)
         pbPlus = QPushButton('+')
         self.layout().addWidget(pbPlus, 2, 4)
 
         pbFour = QPushButton('4')
+        pbFour.clicked.connect(self.button_number_clicked)
         self.layout().addWidget(pbFour, 3, 0)
         pbFive = QPushButton('5')
+        pbFive.clicked.connect(self.button_number_clicked)
         self.layout().addWidget(pbFive, 3, 1)
         pbSix = QPushButton('6')
+        pbSix.clicked.connect(self.button_number_clicked)
         self.layout().addWidget(pbSix, 3, 2)
         pbMinus = QPushButton('-')
         self.layout().addWidget(pbMinus, 3, 4)
 
         pbOne = QPushButton('1')
+        pbOne.clicked.connect(self.button_number_clicked)
         self.layout().addWidget(pbOne, 4, 0)
         pbTwo = QPushButton('2')
+        pbTwo.clicked.connect(self.button_number_clicked)
         self.layout().addWidget(pbTwo, 4, 1)
         pbThree = QPushButton('3')
+        pbThree.clicked.connect(self.button_number_clicked)
         self.layout().addWidget(pbThree, 4, 2)
         pbMultiply = QPushButton('*')
         self.layout().addWidget(pbMultiply, 4, 4)
@@ -62,6 +84,7 @@ class CalculatorWindow(QWidget):
         pbPoint = QPushButton('.')
         self.layout().addWidget(pbPoint, 5, 0)
         pbZero = QPushButton('0')
+        pbZero.clicked.connect(self.button_number_clicked)
         self.layout().addWidget(pbZero, 5, 1)
         pbEqual = QPushButton('=')
         self.layout().addWidget(pbEqual, 5, 2)
