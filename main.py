@@ -8,6 +8,8 @@ from PyQt5.QtWidgets import (QApplication, QGridLayout, QLineEdit, QPushButton,
 
 
 class CalculatorWindow(QWidget):
+    last_number = 0
+
     def __init__(self):
         super().__init__()
 
@@ -47,6 +49,16 @@ class CalculatorWindow(QWidget):
         input_field = self.layout().itemAtPosition(0, 0).widget()
         input_field.setText('0')
 
+    def button_operation_clicked(self):
+        input_field = self.layout().itemAtPosition(0, 0).widget()
+        self.last_number = int(input_field.text())
+        input_field.setText('0')
+
+    def button_equal_clicked(self):
+        input_field = self.layout().itemAtPosition(0, 0).widget()
+        addiction = int(input_field.text()) + self.last_number
+        input_field.setText(str(addiction))
+
     def add_buttons(self):
 
         pbReset = QPushButton('C')
@@ -63,6 +75,7 @@ class CalculatorWindow(QWidget):
         pbNine.clicked.connect(self.button_number_clicked)
         self.layout().addWidget(pbNine, 2, 2)
         pbPlus = QPushButton('+')
+        pbPlus.clicked.connect(self.button_operation_clicked)
         self.layout().addWidget(pbPlus, 2, 4)
 
         pbFour = QPushButton('4')
@@ -75,6 +88,7 @@ class CalculatorWindow(QWidget):
         pbSix.clicked.connect(self.button_number_clicked)
         self.layout().addWidget(pbSix, 3, 2)
         pbMinus = QPushButton('-')
+        pbMinus.clicked.connect(self.button_operation_clicked)
         self.layout().addWidget(pbMinus, 3, 4)
 
         pbOne = QPushButton('1')
@@ -87,6 +101,7 @@ class CalculatorWindow(QWidget):
         pbThree.clicked.connect(self.button_number_clicked)
         self.layout().addWidget(pbThree, 4, 2)
         pbMultiply = QPushButton('*')
+        pbMultiply.clicked.connect(self.button_operation_clicked)
         self.layout().addWidget(pbMultiply, 4, 4)
 
         pbPoint = QPushButton('.')
@@ -95,8 +110,10 @@ class CalculatorWindow(QWidget):
         pbZero.clicked.connect(self.button_number_clicked)
         self.layout().addWidget(pbZero, 5, 1)
         pbEqual = QPushButton('=')
+        pbEqual.clicked.connect(self.button_equal_clicked)
         self.layout().addWidget(pbEqual, 5, 2)
         pbDivision = QPushButton('/')
+        pbDivision.clicked.connect(self.button_operation_clicked)
         self.layout().addWidget(pbDivision, 5, 4)
 
 
