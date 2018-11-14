@@ -9,6 +9,7 @@ from PyQt5.QtWidgets import (QApplication, QGridLayout, QLineEdit, QPushButton,
 
 class CalculatorWindow(QWidget):
     last_number = 0
+    new_action = None
 
     def __init__(self):
         super().__init__()
@@ -50,14 +51,25 @@ class CalculatorWindow(QWidget):
         input_field.setText('0')
 
     def button_operation_clicked(self):
+        sender = self.sender()
         input_field = self.layout().itemAtPosition(0, 0).widget()
         self.last_number = int(input_field.text())
+        self.new_action = sender.text()
         input_field.setText('0')
 
     def button_equal_clicked(self):
         input_field = self.layout().itemAtPosition(0, 0).widget()
-        addiction = int(input_field.text()) + self.last_number
-        input_field.setText(str(addiction))
+        result = 0
+        if self.new_action == '+':
+            result = int(input_field.text()) + self.last_number
+        elif self.new_action == '-':
+            result = self.last_number - int(input_field.text())
+        elif self.new_action == '*':
+            result = int(input_field.text()) * self.last_number
+        elif self.new_action == '/':
+            result = self.last_number / int(input_field.text())
+
+        input_field.setText(str(result))
 
     def add_buttons(self):
 
